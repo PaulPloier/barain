@@ -149,29 +149,51 @@ a {
   scroll-margin-top: 7rem;
 }
 
-.intro-placeholder,
+.hero,
 .content-section {
   width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
 }
 
-.intro-placeholder {
+.hero {
   min-height: 100vh;
+  padding: 0;
+}
+
+.hero__viewport {
+  position: relative;
+  min-height: 100vh;
+  overflow: clip;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #000;
+}
+
+.hero__video {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(6rem, 10vh, 8rem) clamp(1.25rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2rem);
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 26%, transparent 68%, rgba(0, 0, 0, 0.72)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04), transparent 24%);
+}
+
+.hero__copy {
   display: grid;
-  align-items: end;
-  padding: 8rem 0 4rem;
+  gap: 0.65rem;
 }
 
-.intro-placeholder__inner {
-  width: min(100%, 52rem);
-  padding: clamp(2rem, 4vw, 3rem);
-  border: 1px solid var(--color-border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-  backdrop-filter: blur(18px);
-}
-
-.intro-placeholder__eyebrow,
+.hero__eyebrow,
+.hero__hint,
 .content-section__eyebrow {
   margin: 0 0 1rem;
   color: var(--color-eyebrow);
@@ -180,7 +202,7 @@ a {
   text-transform: uppercase;
 }
 
-.intro-placeholder__title,
+.hero__label,
 .content-section__title {
   margin: 0;
   font-family: var(--font-display);
@@ -189,12 +211,31 @@ a {
   text-transform: uppercase;
 }
 
-.intro-placeholder__title {
-  font-size: clamp(3rem, 8vw, 6.5rem);
-  line-height: 0.94;
+.hero__label {
+  width: min(100%, 18rem);
+  color: var(--color-copy-strong);
+  font-size: clamp(1.6rem, 3vw, 2.35rem);
+  line-height: 0.96;
 }
 
-.intro-placeholder__copy,
+.hero__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  align-self: flex-end;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+}
+
+.hero__hint-line {
+  width: 4rem;
+  height: 1px;
+  background: currentColor;
+}
+
 .content-section__copy {
   margin: 1.5rem 0 0;
   width: min(100%, 36rem);
@@ -243,12 +284,16 @@ a {
     padding-bottom: 4rem;
   }
 
-  .intro-placeholder {
-    padding-top: 6rem;
-  }
-
-  .intro-placeholder__inner,
+  .hero__overlay,
   .content-section__inner {
     padding: 1.5rem;
+  }
+
+  .hero__overlay {
+    padding-top: 5.75rem;
+  }
+
+  .hero__hint {
+    align-self: flex-start;
   }
 }

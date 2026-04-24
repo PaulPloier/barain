@@ -1,3 +1,4 @@
+import { createHeroSection } from "./heroSection.js";
 import { createSiteHeader } from "./siteHeader.js";
 import { sectionData } from "../scripts/sectionData.js";
 
@@ -18,19 +19,7 @@ export function createAppShell() {
     <div class="site-shell">
       ${createSiteHeader()}
       <main class="page-main">
-        <section class="intro-placeholder" id="top">
-          <div class="intro-placeholder__inner">
-            <p class="intro-placeholder__eyebrow">BARAiN</p>
-            <h1 class="intro-placeholder__title">
-              Spatially led sonic experiences are taking shape.
-            </h1>
-            <p class="intro-placeholder__copy">
-              This first pass establishes the cinematic frontend shell, section
-              structure, and performance-focused baseline for the interactive
-              launch sequence.
-            </p>
-          </div>
-        </section>
+        ${createHeroSection()}
         ${sectionData.map(renderSection).join("")}
       </main>
     </div>
