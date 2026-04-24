@@ -99,13 +99,7 @@ function snapshotSurface(surface) {
 
 function updateLoadingState(state, progress) {
   const safeProgress = clamp(progress);
-  const percent = Math.round(safeProgress * 100);
-
-  state.loading?.style.setProperty("--sequence-progress", safeProgress.toFixed(4));
-
-  if (state.loadingText) {
-    state.loadingText.textContent = `${percent}%`;
-  }
+  state.onProgress?.(safeProgress);
 }
 
 function resetCapturedFrames(state) {
@@ -277,7 +271,7 @@ async function extractFramesByPlayback(state, surface, extractionWidth, extracti
       }
     };
 
-    state.video.playbackRate = 2;
+    state.video.playbackRate = 4;
     state.video.addEventListener("ended", handleEnded, { once: true });
     state.video.addEventListener("error", handleError, { once: true });
     state.video.requestVideoFrameCallback(handleFrame);
@@ -371,7 +365,7 @@ async function extractFrames(state) {
 
   state.ready = true;
   state.frameCount = state.frames.length;
-  state.loading?.setAttribute("data-ready", "true");
+  updateLoadingState(state, 1);
   state.video.pause();
   state.video.currentTime = 0;
 }
@@ -462,19 +456,17 @@ function setupVisibilityObserver(state) {
   return observer;
 }
 
-export function initVideoScroll() {
+export function initVideoScroll({ onProgress } = {}) {
   const root = document.querySelector(".hero");
   const canvas = root?.querySelector("[data-hero-canvas]");
   const video = root?.querySelector("[data-hero-video]");
   const overlay = root?.querySelector("[data-hero-overlay]");
   const veil = root?.querySelector("[data-hero-veil]");
   const headline = root?.querySelector("[data-hero-headline]");
-  const loading = root?.querySelector("[data-hero-loading]");
-  const loadingText = root?.querySelector("[data-hero-loading-text]");
   const header = document.querySelector("[data-site-header]");
 
-  if (!root || !canvas || !video || !overlay || !veil || !headline || !loading) {
-    return;
+  if (!root || !canvas || !video || !overlay || !veil || !headline) {
+    return { ready: Promise.resolve(null) };
   }
 
   const context = canvas.getContext("2d", {
@@ -483,7 +475,7 @@ export function initVideoScroll() {
   });
 
   if (!context) {
-    return;
+    return { ready: Promise.resolve(null) };
   }
 
   const state = {
@@ -496,9 +488,8 @@ export function initVideoScroll() {
     header,
     headline,
     isVisible: true,
-    loading,
-    loadingText,
     needsRedraw: true,
+    onProgress,
     overlay,
     rafId: 0,
     ready: false,
@@ -526,20 +517,19 @@ export function initVideoScroll() {
   window.addEventListener("scroll", handleScroll, { passive: true });
   window.addEventListener("resize", handleResize, { passive: true });
 
+  updateLoadingState(state, 0);
   requestRender(state);
 
-  extractFrames(state)
+  const ready = extractFrames(state)
     .then(() => {
       state.needsRedraw = true;
       requestRender(state);
+      return state;
     })
     .catch((error) => {
       console.error("BARAiN sequence extraction failed:", error);
-      if (loadingText) {
-        loadingText.textContent = "Sequence unavailable";
-      }
-
-      loading.style.setProperty("--sequence-progress", "1");
+      updateLoadingState(state, 1);
+      throw error;
     });
 
   window.addEventListener(
@@ -556,4 +546,6 @@ export function initVideoScroll() {
     },
     { once: true },
   );
+
+  return { ready };
 }

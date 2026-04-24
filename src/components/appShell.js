@@ -1,4 +1,5 @@
 import { createHeroSection } from "./heroSection.js";
+import { createSitePreloader } from "./sitePreloader.js";
 import { createSiteHeader } from "./siteHeader.js";
 import { sectionData } from "../scripts/sectionData.js";
 
@@ -16,7 +17,8 @@ function renderSection(section) {
 
 export function createAppShell() {
   return `
-    <div class="site-shell">
+    ${createSitePreloader()}
+    <div class="site-shell" data-site-shell data-state="loading">
       ${createSiteHeader()}
       <main class="page-main">
         ${createHeroSection()}
