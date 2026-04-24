@@ -2,8 +2,8 @@ import "./styles/main.css";
 import { createAppShell } from "./components/appShell.js";
 import { initVideoScroll } from "./scripts/videoScroll.js";
 
-const PRELOADER_HOLD_MS = 320;
-const PRELOADER_FADE_MS = 820;
+const PRELOADER_HOLD_MS = 120;
+const PRELOADER_FADE_MS = 420;
 const PROGRESS_WEIGHTS = {
   sequence: 0.86,
   fonts: 0.07,

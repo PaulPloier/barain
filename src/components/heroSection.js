@@ -2,7 +2,7 @@ import heroVideo from "../assets/video/Cinematic Mouth Transition.mp4";
 
 export function createHeroSection() {
   return `
-    <section class="hero" id="top" data-sequence-fps="24">
+    <section class="hero" id="top" data-sequence-fps="12">
       <div class="hero__viewport">
         <canvas
           class="hero__canvas"

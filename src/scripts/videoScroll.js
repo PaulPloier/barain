@@ -1,5 +1,5 @@
-const DEFAULT_SEQUENCE_FPS = 24;
-const MAX_CANVAS_DPR = 2;
+const DEFAULT_SEQUENCE_FPS = 12;
+const MAX_CANVAS_DPR = 1.5;
 const FRAME_END_PROGRESS = 0.82;
 const OVERLAY_FADE_START = 0.72;
 const OVERLAY_FADE_END = 0.82;
@@ -51,14 +51,14 @@ function getExtractionWidth(videoWidth) {
   const deviceMemory = navigator.deviceMemory ?? 8;
 
   if (deviceMemory <= 4) {
-    return Math.min(videoWidth, 768);
+    return Math.min(videoWidth, 640);
   }
 
   if (deviceMemory <= 8) {
-    return Math.min(videoWidth, 960);
+    return Math.min(videoWidth, 768);
   }
 
-  return Math.min(videoWidth, 1280);
+  return Math.min(videoWidth, 960);
 }
 
 function createSurface(width, height) {
