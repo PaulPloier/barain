@@ -61,8 +61,92 @@ a {
   position: relative;
 }
 
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 10;
+  padding: 1rem var(--page-padding) 0;
+}
+
+.site-header__inner {
+  width: min(100%, var(--content-width));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, rgba(7, 7, 7, 0.72), rgba(7, 7, 7, 0.14));
+  backdrop-filter: blur(20px);
+}
+
+.site-header__brand,
+.site-header__nav,
+.site-header__cta {
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-header__brand,
+.site-header__link,
+.site-header__cta {
+  text-decoration: none;
+}
+
+.site-header__brand {
+  gap: 0.65rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.site-header__brand-mark {
+  width: 0.55rem;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.18));
+  box-shadow: 0 0 2rem rgba(255, 255, 255, 0.35);
+}
+
+.site-header__nav {
+  gap: 1.25rem;
+}
+
+.site-header__link,
+.site-header__cta {
+  color: var(--color-copy);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.site-header__link:hover,
+.site-header__link:focus-visible,
+.site-header__cta:hover,
+.site-header__cta:focus-visible {
+  color: var(--color-copy-strong);
+}
+
+.site-header__cta {
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.06);
+}
+
 .page-main {
   padding: 0 var(--page-padding) 6rem;
+}
+
+.page-main > section {
+  scroll-margin-top: 7rem;
 }
 
 .intro-placeholder,
@@ -138,6 +222,23 @@ a {
 }
 
 @media (max-width: 720px) {
+  .site-header {
+    padding-top: 0.75rem;
+  }
+
+  .site-header__inner {
+    padding: 0.8rem 0.9rem;
+  }
+
+  .site-header__nav {
+    display: none;
+  }
+
+  .site-header__cta {
+    padding-inline: 0.8rem;
+    font-size: 0.74rem;
+  }
+
   .page-main {
     padding-bottom: 4rem;
   }

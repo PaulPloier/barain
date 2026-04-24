@@ -1,3 +1,4 @@
+import { createSiteHeader } from "./siteHeader.js";
 import { sectionData } from "../scripts/sectionData.js";
 
 function renderSection(section) {
@@ -15,6 +16,7 @@ function renderSection(section) {
 export function createAppShell() {
   return `
     <div class="site-shell">
+      ${createSiteHeader()}
       <main class="page-main">
         <section class="intro-placeholder" id="top">
           <div class="intro-placeholder__inner">
