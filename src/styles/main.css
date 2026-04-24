@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
 
 :root {
   --color-background: #050505;
@@ -163,7 +163,7 @@ a {
 
 .hero__viewport {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   overflow: clip;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: #000;
@@ -178,6 +178,7 @@ a {
 .hero__overlay {
   position: absolute;
   inset: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -190,6 +191,32 @@ a {
 .hero__copy {
   display: grid;
   gap: 0.65rem;
+}
+
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #000;
+  opacity: 0;
+}
+
+.hero__headline-block {
+  position: absolute;
+  inset: auto clamp(1.25rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2rem);
+  z-index: 3;
+  max-width: min(100%, 52rem);
+  opacity: 0;
+  transform: translateY(12%);
+}
+
+.hero__headline-eyebrow {
+  margin: 0 0 1rem;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
 }
 
 .hero__eyebrow,
@@ -234,6 +261,16 @@ a {
   width: 4rem;
   height: 1px;
   background: currentColor;
+}
+
+.hero__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  text-transform: uppercase;
 }
 
 .content-section__copy {
@@ -291,6 +328,11 @@ a {
 
   .hero__overlay {
     padding-top: 5.75rem;
+  }
+
+  .hero__headline-block {
+    inset-inline: 1.5rem;
+    bottom: 1.5rem;
   }
 
   .hero__hint {
