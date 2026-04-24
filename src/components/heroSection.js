@@ -2,18 +2,30 @@ import heroVideo from "../assets/video/Cinematic Mouth Transition.mp4";
 
 export function createHeroSection() {
   return `
-    <section class="hero" id="top">
+    <section class="hero" id="top" data-sequence-fps="24">
       <div class="hero__viewport">
+        <canvas
+          class="hero__canvas"
+          data-hero-canvas
+          aria-hidden="true"
+        ></canvas>
         <video
-          class="hero__video"
+          class="hero__source"
           data-hero-video
           aria-hidden="true"
           playsinline
           muted
           preload="auto"
+          src="${heroVideo}"
         >
-          <source src="${heroVideo}" type="video/mp4" />
         </video>
+        <div class="hero__loading" data-hero-loading style="--sequence-progress: 0">
+          <p class="hero__loading-label">Preparing sequence</p>
+          <div class="hero__loading-bar">
+            <span class="hero__loading-fill"></span>
+          </div>
+          <p class="hero__loading-progress" data-hero-loading-text>0%</p>
+        </div>
         <div class="hero__veil" data-hero-veil></div>
         <div class="hero__overlay" data-hero-overlay>
           <div class="hero__copy">
