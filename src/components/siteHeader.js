@@ -8,7 +8,7 @@ const navigationItems = [
 
 export function createSiteHeader() {
   return `
-    <header class="site-header">
+    <header class="site-header" data-site-header data-state="hidden">
       <div class="site-header__inner">
         <a class="site-header__brand" href="#top" aria-label="BARAiN home">
           <span class="site-header__brand-mark"></span>

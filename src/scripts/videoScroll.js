@@ -7,6 +7,8 @@ const VEIL_FADE_START = 0.82;
 const VEIL_FADE_END = 0.92;
 const HEADLINE_REVEAL_START = 0.9;
 const HEADLINE_REVEAL_END = 1;
+const HEADER_REVEAL_START = 0.985;
+const HEADER_REVEAL_END = 1;
 const SEEK_EPSILON = 1 / 120;
 
 function clamp(value, min = 0, max = 1) {
@@ -397,6 +399,21 @@ function applyOverlayState(state, progress) {
   state.headline.style.transform = `translate3d(0, ${((1 - headlineReveal) * 12).toFixed(2)}%, 0)`;
 }
 
+function applyHeaderState(state, progress) {
+  if (!state.header) {
+    return;
+  }
+
+  const headerReveal = easeOutCubic(
+    clamp((progress - HEADER_REVEAL_START) / (HEADER_REVEAL_END - HEADER_REVEAL_START)),
+  );
+
+  state.header.style.opacity = headerReveal.toFixed(3);
+  state.header.style.transform = `translate3d(0, ${((1 - headerReveal) * -20).toFixed(2)}px, 0)`;
+  state.header.style.pointerEvents = headerReveal > 0.98 ? "auto" : "none";
+  state.header.dataset.state = headerReveal > 0.98 ? "visible" : "hidden";
+}
+
 function render(state) {
   state.rafId = 0;
 
@@ -409,6 +426,7 @@ function render(state) {
 
   sizeCanvas(state);
   applyOverlayState(state, progress);
+  applyHeaderState(state, progress);
 
   if (state.frames.length > 0) {
     const totalFrames = state.frameCount || state.frames.length;
@@ -453,6 +471,7 @@ export function initVideoScroll() {
   const headline = root?.querySelector("[data-hero-headline]");
   const loading = root?.querySelector("[data-hero-loading]");
   const loadingText = root?.querySelector("[data-hero-loading-text]");
+  const header = document.querySelector("[data-site-header]");
 
   if (!root || !canvas || !video || !overlay || !veil || !headline || !loading) {
     return;
@@ -474,6 +493,7 @@ export function initVideoScroll() {
     fps: Number(root.dataset.sequenceFps) || DEFAULT_SEQUENCE_FPS,
     frameCount: 0,
     frames: [],
+    header,
     headline,
     isVisible: true,
     loading,
