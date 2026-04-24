@@ -294,6 +294,16 @@ a {
   justify-content: flex-end;
   padding: clamp(6rem, 10vh, 8rem) clamp(1.25rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2rem);
   background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.52) 16%,
+      rgba(0, 0, 0, 0.14) 34%,
+      rgba(0, 0, 0, 0.04) 50%,
+      rgba(0, 0, 0, 0.14) 66%,
+      rgba(0, 0, 0, 0.52) 84%,
+      rgba(0, 0, 0, 0.9) 100%
+    ),
     linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 26%, transparent 68%, rgba(0, 0, 0, 0.72)),
     linear-gradient(90deg, rgba(255, 255, 255, 0.04), transparent 24%);
 }
